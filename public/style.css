@@ -22,13 +22,24 @@ hr {
 	margin: 25px;
 }
 
-.footer {
-	margin-top: 40px;
-}
 
+.footer {
+	background-color: #ddd;
+	padding: 20px;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+  }
+  .footer a {
+	margin: 0 10px;
+	text-decoration: none;
+  }
+  .footer i {
+	margin-right: 5px;
+  
 code {
   font-family: monospace;
-  padding: 2px;
   color: black;
   background-color: #fff;
 }
