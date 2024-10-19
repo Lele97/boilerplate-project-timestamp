@@ -28,8 +28,19 @@ app.get("/api/:date", function(req, res) {
     if (!(date_ instanceof Date) || isNaN(date_.getTime())) {
       throw new Error("Invalid Date");
     }
-    
-    res.json({ "date": date });
+
+    let t = "one"
+    switch (t) {
+      case "one":
+      res.json({ "unix": date_.getDate()})
+        break;
+      case "two":
+    res.json({"utc":date_.toUTCString()})
+    break;
+    default:
+    break;
+    }
+
   } catch (err) {
     console.error(err);
     res.status(500).json({
