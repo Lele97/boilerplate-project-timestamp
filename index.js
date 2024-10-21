@@ -19,9 +19,19 @@ app.get("/", function (req, res) {
 });
 
 
-app.get("/api/:date", function(req, res) {
+app.get("/api/:date?", function(req, res) {
   try {
     const date = req.params.date;
+
+    if(!date || /^\s*$/.test(date)){
+      console.log("String is empty")
+      const dateNow = new Date();
+      res.json({
+        "unix": dateNow.getTime(),
+        "utc": dateNow.toUTCString()
+      });
+      return;
+    }
 
     const date_ = new Date(date)
 
@@ -29,17 +39,10 @@ app.get("/api/:date", function(req, res) {
       throw new Error("Invalid Date");
     }
 
-    let t = "one"
-    switch (t) {
-      case "one":
-      res.json({ "unix": date_.getDate()})
-        break;
-      case "two":
-    res.json({"utc":date_.toUTCString()})
-    break;
-    default:
-    break;
-    }
+    res.json({
+      "unix": date_.getDate(),
+      "utc": date_.toUTCString()
+    })
 
   } catch (err) {
     console.error(err);
