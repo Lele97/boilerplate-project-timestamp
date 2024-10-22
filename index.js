@@ -6,9 +6,9 @@ var express = require('express');
 var app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
-// so that your API is remotely testable by FCC 
+// so that your API is remotely testable by FCC
 var cors = require('cors');
-app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+app.use(cors({ optionsSuccessStatus: 200 })); // some legacy browsers choke on 204
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -18,24 +18,21 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-app.get("/api/:date?", function(req, res) {
+app.get("/api/:date?", function(req, res) {  
   try {
     const date = req.params.date;
-
-    if((!isNaN(date) && date.length === 13)){
+    
+    if ((!isNaN(date) && date.length === 13)) {
       const unixdate = Number(date);
       const date_ = new Date(unixdate);
-
       res.json({
-        "unix": date,
+        "unix": unixdate,
         "utc": date_.toUTCString()
-      })
+      });
       return;
     }
-
-    if(!date || /^\s*$/.test(date)){
-      console.log("String is empty")
+    
+    if (!date || /^\s*$/.test(date)) {
       const dateNow = new Date();
       res.json({
         "unix": dateNow.getTime(),
@@ -43,32 +40,28 @@ app.get("/api/:date?", function(req, res) {
       });
       return;
     }
-
-    const date_ = new Date(date)
-
-    if (!(date_ instanceof Date) || isNaN(date_.getTime())) {
+    
+    const date_ = new Date(date);
+    if (isNaN(date_.getTime())) {
       throw new Error("Invalid Date");
     }
-
+    
     res.json({
       "unix": date_.getTime(),
       "utc": date_.toUTCString()
-    })
-
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      "error":"Invalid Date"
+      "error": "Invalid Date"
     });
   }
 });
 
-// your first API endpoint... 
+// your first API endpoint...
 app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+  res.json({ greeting: 'hello API' });
 });
-
-
 
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
