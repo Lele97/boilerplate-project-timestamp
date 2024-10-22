@@ -23,7 +23,7 @@ app.get("/api/:date?", function(req, res) {
   try {
     const date = req.params.date;
 
-    if(date === "1451001600000"){
+    if((!isNaN(date) && date.length === 13)){
       const unixdate = Number(date);
       const date_ = new Date(unixdate);
 
