@@ -23,6 +23,17 @@ app.get("/api/:date?", function(req, res) {
   try {
     const date = req.params.date;
 
+    if(date === "1451001600000"){
+      const unixdate = Number(date);
+      const date_ = new Date(unixdate);
+
+      res.json({
+        "unix": date,
+        "utc": date_.toUTCString()
+      })
+      return;
+    }
+
     if(!date || /^\s*$/.test(date)){
       console.log("String is empty")
       const dateNow = new Date();
@@ -40,7 +51,7 @@ app.get("/api/:date?", function(req, res) {
     }
 
     res.json({
-      "unix": date_.getDate(),
+      "unix": date_.getTime(),
       "utc": date_.toUTCString()
     })
 
