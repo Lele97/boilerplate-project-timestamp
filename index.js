@@ -27,8 +27,8 @@ app.get("/api/:date?", function(req, res) {
       const date_ = new Date(dateNumber);
       (dateNumber);
       res.json({
-        "unix": " "+dateNumber,
-        "utc": " "+date_.toUTCString()
+        "unix": dateNumber,
+        "utc": date_.toUTCString()
       })
       return;
     }
