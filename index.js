@@ -23,12 +23,13 @@ app.get("/api/:date?", function(req, res) {
     const date = req.params.date;
     
     if ((!isNaN(date) && date.length === 13)) {
-      const unixdate = Number(date);
-      const date_ = new Date(unixdate);
+      const dateNumber = Number(date);
+      const date_ = new Date(dateNumber);
+      (dateNumber);
       res.json({
-        "unix": unixdate,
-        "utc": date_.toUTCString()
-      });
+        "unix": " "+dateNumber,
+        "utc": " "+date_.toUTCString()
+      })
       return;
     }
     
